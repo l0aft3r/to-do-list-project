@@ -1,7 +1,8 @@
 import { format } from "date-fns";
+export default App
 
 class Project {
-    constructor(title, description, dueDate = none) {
+    constructor(title, description, dueDate = undefined) {
         this.title = title;
         this.description = description;
         this.todos = [];
@@ -10,7 +11,7 @@ class Project {
 }
 
 class Todo {
-    constructor(title, description, dueDate = none, notes = '', priority = 1) {
+    constructor(title, description, dueDate = undefined, notes = '', priority = 1) {
         this.title = title;
         this.description = description;
         this.notes = notes;
@@ -25,9 +26,9 @@ class App {
         this.projects = [];
     }
 
-    createProject(title, description, dueDate = none) {
+    createProject(title, description = "", dueDate = undefined) {
         if (dueDate) dueDate = format(dueDate, "dd/MM/yyyy");
-        this.projects.append(new Project(title, description, dueDate));
+        this.projects.push(new Project(title, description, dueDate));
     }
 
     getProjects() {
@@ -38,7 +39,7 @@ class App {
         return this.getProjects()[index];
     }
 
-    updateProject(index, title, description, dueDate = none) {
+    updateProject(index, title, description = "", dueDate = undefined) {
         const project = this.projects[index];
         project.title = title;
         project.description = description;
@@ -50,9 +51,9 @@ class App {
         this.projects.splice(index, 1);
     }
 
-    createTodo(projectIndex, title, description, dueDate = none, notes = '', priority = 1) {
+    createTodo(projectIndex, title, description = "", dueDate = undefined, notes = '', priority = 1) {
         if (dueDate) dueDate = format(dueDate, "dd/MM/yyyy");
-        this.projects[projectIndex].todos.append(new Todo(title, description, dueDate, notes, priority));
+        this.projects[projectIndex].todos.push(new Todo(title, description, dueDate, notes, priority));
     }
 
     getTodos(projectIndex) {
@@ -63,7 +64,7 @@ class App {
         return this.projects[projectIndex].todos[Index];
     }
 
-    updateTodo(projectIndex, index, title, description, dueDate = none, notes = none, priority = none) {
+    updateTodo(projectIndex, index, title, description = "", dueDate = undefined, notes = undefined, priority = undefined) {
         const Todo = this.projects[projectIndex].todos[index];
         Todo.title = title;
         Todo.description = description;
