@@ -39,6 +39,7 @@ p, h1, h2, h3, h4, h5, h6 {
     --purple: #AD88C6;
     --pink: #E1AFD1;
     --light-pink: #FFE6E6;
+    --important: #00c3ff;
 }
 
 /* End of CSS Reset */
@@ -51,10 +52,33 @@ p, h1, h2, h3, h4, h5, h6 {
 body {
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 2fr 5fr;
     padding: 1rem;
     background-color: var(--dark-purple);
     font-family: Roboto;
+}
+
+.quote1 {
+    color: var(--light-pink);
+}
+
+.quote2 {
+    color: var(--important);
+}
+
+.svg-logo {
+    height: 3rem;
+    margin: 0 5px 0 5px;
+    filter: invert(98%) sepia(27%) saturate(2381%) hue-rotate(290deg) brightness(119%) contrast(104%);
+}
+
+.svg-logo-h2 {
+    height: 2.5rem;
+    filter: invert(98%) sepia(27%) saturate(2381%) hue-rotate(290deg) brightness(119%) contrast(104%);
+}
+
+.icon:hover {
+    filter: invert(60%) sepia(17%) saturate(878%) hue-rotate(232deg) brightness(96%) contrast(84%);
 }
 
 #left-column {
@@ -79,29 +103,59 @@ body {
     align-items: center;
 }
 
-.svg-logo {
-    height: 3rem;
-    margin: 0 5px 0 5px;
-    filter: invert(98%) sepia(27%) saturate(2381%) hue-rotate(290deg) brightness(119%) contrast(104%);
-}
-
-.svg-logo-h2 {
-    height: 2.5rem;
-    margin: 0 5px 0 5px;
-    filter: invert(98%) sepia(27%) saturate(2381%) hue-rotate(290deg) brightness(119%) contrast(104%);
-}
-
 #filters {
     display: flex;
     flex-direction: column;
+    gap: 8px;
     
     button {
         text-align: left;
         border: none;
         background-color: inherit;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 5px;
+    }
+
+    button:hover {
+        background-color: var(--pink);
     }
 }
 
-h1 {
-    
+#projects {
+
+    #create {
+        box-sizing: border-box;
+        padding: 5px;
+        padding-left: 10px;
+        text-align: left;
+        border: none;
+        background-color: var(--dark-purple);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        width: 100%;
+        gap: 5px;
+    }
+
+    #create:hover {
+        outline: #FFE6E6;
+    }
+
+    :nth-child(2) {
+        margin-left: auto;
+    }
+}
+
+#create-btn {
+    background-color: inherit;
+    border: none;
+}
+
+#main-interface {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
