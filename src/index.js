@@ -11,3 +11,9 @@ window.Application = Application;
 loadIcons();
 
 getStarted();
+
+const createProjectBtn = document.querySelector("#create-btn");
+
+document.addEventListener(createProjectBtn, (e) => {
+    
+})
