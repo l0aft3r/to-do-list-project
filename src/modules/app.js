@@ -11,10 +11,9 @@ class Project {
 }
 
 class Todo {
-    constructor(title, description, dueDate = undefined, notes = '', priority = 'Low') {
+    constructor(title, description, dueDate = undefined, priority = 'Low') {
         this.title = title;
         this.description = description;
-        this.notes = notes;
         this.priority = priority;
         this.dueDate = dueDate;
         this.checked = false;
@@ -27,7 +26,7 @@ class App {
     }
 
     createProject(title, description = "", dueDate = undefined) {
-        if (dueDate) dueDate = format(dueDate, "dd/MM/yyyy");
+        if (dueDate) dueDate = format(Date(dueDate), "dd/MM/yyyy");
         this.projects.push(new Project(title, description, dueDate));
     }
 
@@ -51,9 +50,9 @@ class App {
         this.projects.splice(index, 1);
     }
 
-    createTodo(projectIndex, title, description = "", dueDate = undefined, notes = '', priority = 'low') {
+    createTodo(projectIndex, title, description = "", dueDate = undefined, priority = 'low') {
         if (dueDate) dueDate = format(dueDate, "dd/MM/yyyy");
-        this.projects[projectIndex].todos.push(new Todo(title, description, dueDate, notes, priority));
+        this.projects[projectIndex].todos.push(new Todo(title, description, dueDate, priority));
     }
 
     getTodos(projectIndex) {
@@ -64,12 +63,11 @@ class App {
         return this.projects[projectIndex].todos[Index];
     }
 
-    updateTodo(projectIndex, index, title, description = "", dueDate = undefined, notes = undefined, priority = 'low') {
+    updateTodo(projectIndex, index, title, description = "", dueDate = undefined, priority = 'low') {
         const Todo = this.projects[projectIndex].todos[index];
         Todo.title = title;
         Todo.description = description;
         if (dueDate) Todo.dueDate = format(dueDate, "dd/MM/yyyy");
-        if (notes) Todo.notes = notes;
         if (priority) Todo.priority = priority;
     }
 

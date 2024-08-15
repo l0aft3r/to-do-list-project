@@ -1,6 +1,7 @@
 /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
+  I have slightly modified the CSS reset, go to the link above for the original one.
 */
 
 *, *::before, *::after {
@@ -24,6 +25,10 @@ img, picture, video, canvas, svg {
 input, button, textarea, select {
     font: inherit;
     color: inherit;
+}
+
+input {
+    display: block;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -81,6 +86,37 @@ body {
     filter: invert(60%) sepia(17%) saturate(878%) hue-rotate(232deg) brightness(96%) contrast(84%);
 }
 
+.project {
+    background-color: var(--purple);
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    h2 {
+        margin-left: 5px;
+    }
+
+    button {
+        background-color: inherit;
+        border: none;
+    }
+
+    img {
+        width: 2.5rem;
+        filter: invert(98%) sepia(27%) saturate(2381%) hue-rotate(290deg) brightness(119%) contrast(104%);
+    }
+
+    img:hover {
+        filter: invert(47%) sepia(24%) saturate(964%) hue-rotate(209deg) brightness(89%) contrast(91%);
+    }
+}
+
+.project:hover {
+    background-color: var(--pink);
+}
+
 #left-column {
     height: 100%;
     display: grid;
@@ -124,6 +160,9 @@ body {
 }
 
 #projects {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 
     #create {
         box-sizing: border-box;
@@ -158,4 +197,39 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+dialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--purple);
+    border: none;
+    color: var(--light-pink);
+    border-radius: 16px;
+
+    input {
+        background-color: var(--dark-purple);
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 4px 8px;
+    }
+
+    input[type="submit"]{
+        display: inline;
+        margin-top: 1rem;
+    }
+
+    input:hover{
+        color: var(--pink);
+    }
+}
+
+select {
+    background-color: var(--dark-purple);
+    outline: none;
+    border-radius: 5px;
+    display: block;
 }
