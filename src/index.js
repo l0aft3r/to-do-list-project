@@ -31,7 +31,7 @@ createDialogBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const values = getValues();
     if (form.id == "createProject") {
-        Application.createProject(values.title, values.description, values.dueDate);
+        Application.createProject(values.title, values.description);
         createProject(Application.getProject(Application.getProjects().length - 1));
     }
     closeDialog();
@@ -42,5 +42,9 @@ projects.addEventListener("click", (e) => {
     if (e.target.nodeName == "IMG" && e.target.parentElement.id == "") {
         Application.removeProject(Array.from(projects.children).indexOf(e.target.parentElement.parentElement)-1);
         removeProject(e.target.parentElement.parentElement);
+        emptyMainInterface();
+        getStarted();
+    } else if ([...e.target.classList].includes("project")) {
+        emptyMainInterface();
     }
 })

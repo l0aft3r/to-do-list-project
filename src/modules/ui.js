@@ -33,11 +33,16 @@ function loadIcons() {
 
 function emptyMainInterface() {
     const body = document.querySelector("body");
-    const mainInterface = document.querySelector("#main-interface");
+    let mainInterface = document.querySelector("#main-interface");
     mainInterface.remove();
     mainInterface = document.createElement("div");
     mainInterface.id = "main-interface";
     body.appendChild(mainInterface);
+}
+
+function todoMainInterfaceSetup(project) {
+    const mainInterface = document.querySelector("#main-interface");
+    
 }
 
 function getStarted() {
@@ -64,6 +69,10 @@ function createProjectDialog() {
     priorityLabel.style.display = "none";
     const priority = document.querySelector("#priority");
     priority.style.display = "none";
+    const dueDate = document.querySelector("#project-date");
+    dueDate.style.display = "none";
+    const dueDateLabel = document.querySelector('label[for="project-date"]');
+    dueDateLabel.style.display = "none";
     const form = document.querySelector("form");
     form.id = "createProject";
     dialog.showModal();

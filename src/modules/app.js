@@ -2,11 +2,10 @@ import { format } from "date-fns";
 export default App
 
 class Project {
-    constructor(title, description, dueDate = undefined) {
+    constructor(title, description) {
         this.title = title;
         this.description = description;
         this.todos = [];
-        this.dueDate = dueDate;
     }
 }
 
@@ -25,9 +24,8 @@ class App {
         this.projects = [];
     }
 
-    createProject(title, description = "", dueDate = undefined) {
-        if (dueDate) dueDate = format(Date(dueDate), "dd/MM/yyyy");
-        this.projects.push(new Project(title, description, dueDate));
+    createProject(title, description = "") {
+        this.projects.push(new Project(title, description));
     }
 
     getProjects() {
@@ -38,12 +36,10 @@ class App {
         return this.getProjects()[index];
     }
 
-    updateProject(index, title, description = "", dueDate = undefined) {
+    updateProject(index, title, description = "") {
         const project = this.projects[index];
         project.title = title;
         project.description = description;
-        if (dueDate) dueDate = format(dueDate, "dd/MM/yyyy");
-        project.dueDate = dueDate;
     }
 
     removeProject(index) {
