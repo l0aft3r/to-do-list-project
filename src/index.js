@@ -40,7 +40,7 @@ createDialogBtn.addEventListener("click", (e) => {
 
 projects.addEventListener("click", (e) => {
     if (e.target.nodeName == "IMG" && e.target.parentElement.id == "") {
+        Application.removeProject(Array.from(projects.children).indexOf(e.target.parentElement.parentElement)-1);
         removeProject(e.target.parentElement.parentElement);
-        Application.removeProject(Array.from(projects.children).indexOf(e.target.parentElement.parentElement));
     }
 })
