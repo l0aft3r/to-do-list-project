@@ -6,7 +6,7 @@ import getStartedSVG from "../icons/undraw_experience_design_re_dmqq.svg";
 import binSVG from "../icons/trash-outline.svg";
 
 export default loadIcons
-export {emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject}
+export {emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject, todoMainInterfaceSetup, unselect}
 
 function loadIcons() {
     const logo = document.querySelector("#logo>img");
@@ -40,9 +40,47 @@ function emptyMainInterface() {
     body.appendChild(mainInterface);
 }
 
+function unselect() {
+    const selected = document.querySelector(".selected");
+    if (selected) selected.classList.remove("selected");
+}
+
 function todoMainInterfaceSetup(project) {
+    const form = document.querySelector("form");
+    form.id = "createTodo";
     const mainInterface = document.querySelector("#main-interface");
-    
+
+    const h2 = document.createElement("h2");
+    h2.textContent = project.title;
+
+    const p = document.createElement("p");
+    p.textContent = `${project.todos.length} tasks`;
+    if (project.todos.length === 1) {
+        p.textContent = `${project.todos.length} task`;
+    }
+
+    const createBtn = document.createElement("input");
+    createBtn.type = "button";
+    createBtn.value = "Add task";
+    createBtn.id = "createTodoBtn";
+
+    mainInterface.append(h2, p);
+    for (const todo of project.todos) {
+        const todoContainer = document.createElement("div");
+        const todoTitle = document.createElement("h2");
+        todoTitle.textContent = todo.title;
+        const todoDescription = document.createElement("p");
+        todoDescription.textContent = todo.textContent;
+        const  dueDate = document.createElement("p");
+        dueDate.textContent = `Due: ${todo.dueDate}`;
+        const priority = document.createElement("p");
+        priority.textContent = `Priority: ${todo.priority}`;
+
+        todoContainer.append(todoTitle, todoDescription, dueDate, priority);
+        mainInterface.appendChild(todoContainer);
+    }
+
+    mainInterface.appendChild(createBtn);
 }
 
 function getStarted() {

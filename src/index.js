@@ -1,6 +1,6 @@
 import App from "./modules/app.js";
-import loadIcons from "./modules/ui.js";
-import { emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject } from "./modules/ui.js";
+import loadIcons, { todoMainInterfaceSetup } from "./modules/ui.js";
+import { emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject, unselect } from "./modules/ui.js";
 import "./styles/styles.css";
 
 const Application = new App();
@@ -15,6 +15,7 @@ getStarted();
 const createProjectBtn = document.querySelector("#create-btn");
 const cancelDialogBtn = document.querySelector("#project-cancel");
 const createDialogBtn = document.querySelector("#createProjectBtn");
+const body = document.querySelector("body");
 const form = document.querySelector("form");
 const projects = document.querySelector("#projects");
 
@@ -33,6 +34,9 @@ createDialogBtn.addEventListener("click", (e) => {
     if (form.id == "createProject") {
         Application.createProject(values.title, values.description);
         createProject(Application.getProject(Application.getProjects().length - 1));
+    } else if (form.id == "createTodo") {
+        console.log("h");
+        Application.createTodo(Application.getProject(Array.from(projects.children).indexOf(document.querySelector("selected"))-1), values.title, values.description, values.dueDate, values.priority);
     }
     closeDialog();
     form.reset();
@@ -44,7 +48,17 @@ projects.addEventListener("click", (e) => {
         removeProject(e.target.parentElement.parentElement);
         emptyMainInterface();
         getStarted();
+        unselect();
     } else if ([...e.target.classList].includes("project")) {
         emptyMainInterface();
+        unselect();
+        e.target.classList.add("selected");
+        todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(e.target)-1));
+    }
+})
+
+body.addEventListener("click", (e) => {
+    if (e.target.id == "createTodoBtn") {
+        createToDoDialog();
     }
 })
