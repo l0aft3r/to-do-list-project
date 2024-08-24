@@ -34,9 +34,10 @@ createDialogBtn.addEventListener("click", (e) => {
     if (form.id == "createProject") {
         Application.createProject(values.title, values.description);
         createProject(Application.getProject(Application.getProjects().length - 1));
-    } else if (form.id == "createTodo") {
-        console.log("h");
-        Application.createTodo(Application.getProject(Array.from(projects.children).indexOf(document.querySelector("selected"))-1), values.title, values.description, values.dueDate, values.priority);
+    } else if (form.id == "createToDo") {
+        Application.createTodo(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1, values.title, values.description, values.dueDate, values.priority);
+        emptyMainInterface();
+        todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
     }
     closeDialog();
     form.reset();

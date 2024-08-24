@@ -204,6 +204,38 @@ body {
     align-items: center;
 }
 
+#todo-interface {
+    padding: 2rem;
+    height: 100%;
+    width: 100%;
+
+    h2, p, input {
+        color: var(--light-pink);
+    }
+
+    input {
+        margin-top: 16px;
+        border: none;
+        background-color: var(--dark-purple);
+    }
+
+    input:hover {
+        color: var(--important);
+    }
+}
+
+#todos {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+#todo {
+    border: 1px solid var(--pink);
+    border-radius: 5px;
+    padding: 8px;
+}
+
 dialog {
     position: absolute;
     left: 50%;

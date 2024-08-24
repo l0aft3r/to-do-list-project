@@ -49,6 +49,8 @@ function todoMainInterfaceSetup(project) {
     const form = document.querySelector("form");
     form.id = "createTodo";
     const mainInterface = document.querySelector("#main-interface");
+    const todoInterface = document.createElement("div");
+    todoInterface.id = "todo-interface"
 
     const h2 = document.createElement("h2");
     h2.textContent = project.title;
@@ -64,9 +66,12 @@ function todoMainInterfaceSetup(project) {
     createBtn.value = "Add task";
     createBtn.id = "createTodoBtn";
 
-    mainInterface.append(h2, p);
+    todoInterface.append(h2, p);
+    const todos = document.createElement("div");
+    todos.id = "todos";
     for (const todo of project.todos) {
         const todoContainer = document.createElement("div");
+        todoContainer.id = "todo";
         const todoTitle = document.createElement("h2");
         todoTitle.textContent = todo.title;
         const todoDescription = document.createElement("p");
@@ -77,10 +82,11 @@ function todoMainInterfaceSetup(project) {
         priority.textContent = `Priority: ${todo.priority}`;
 
         todoContainer.append(todoTitle, todoDescription, dueDate, priority);
-        mainInterface.appendChild(todoContainer);
+        todos.appendChild(todoContainer);
     }
 
-    mainInterface.appendChild(createBtn);
+    todoInterface.append(todos, createBtn);
+    mainInterface.appendChild(todoInterface);
 }
 
 function getStarted() {
@@ -112,6 +118,10 @@ function createProjectDialog() {
     const dueDateLabel = document.querySelector('label[for="project-date"]');
     dueDateLabel.style.display = "none";
     const form = document.querySelector("form");
+    const description = document.querySelector("#project-description");
+    description.display = "none";
+    const descriptionLabel = document.querySelector('label[for="project-description"]');
+    descriptionLabel.display = "none";
     form.id = "createProject";
     dialog.showModal();
 }
@@ -124,6 +134,14 @@ function createToDoDialog() {
     priorityLabel.style.display = "inline";
     const priority = document.querySelector("#priority");
     priority.style.display = "block";
+    const dueDateLabel = document.querySelector('label[for="project-date"]');
+    dueDateLabel.style.display = "block";
+    const dueDate = document.querySelector("#project-date");
+    dueDate.style.display = "block";
+    const description = document.querySelector("#project-description");
+    description.display = "block";
+    const descriptionLabel = document.querySelector('label[for="project-description"]');
+    descriptionLabel.display = "block";
     const form = document.querySelector("form");
     form.id = "createToDo";
     dialog.showModal();
