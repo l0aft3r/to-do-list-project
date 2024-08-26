@@ -121,6 +121,20 @@ body {
     border: 1px solid var(--dark-purple);
 }
 
+.tick-btn {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    position: absolute;
+    border: 1px solid var(--pink);
+    background-color: var(--dark-purple);
+}
+
+.tick-btn:hover {
+    border: 1px solid var(--dark-purple);
+    background-color: var(--pink);
+}
+
 #left-column {
     height: 100%;
     display: grid;
@@ -230,10 +244,11 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-#todo {
+.todo {
     border: 1px solid var(--pink);
     border-radius: 5px;
     padding: 8px;
+    position: relative;
 }
 
 dialog {

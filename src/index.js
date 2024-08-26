@@ -61,5 +61,11 @@ projects.addEventListener("click", (e) => {
 body.addEventListener("click", (e) => {
     if (e.target.id == "createTodoBtn") {
         createToDoDialog();
+    } else if (Array.from(e.target.classList).includes("tick-btn")) {
+        const todos = document.querySelector("#todos");
+        const todoIndex = Array.from(todos.children).indexOf(e.target.parentElement);
+        Application.removeTodo(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1, Array.from(projects.children).indexOf(document.querySelector(".selected"))-1, todoIndex);
+        emptyMainInterface();
+        todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
     }
 })

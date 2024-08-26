@@ -71,7 +71,7 @@ function todoMainInterfaceSetup(project) {
     todos.id = "todos";
     for (const todo of project.todos) {
         const todoContainer = document.createElement("div");
-        todoContainer.id = "todo";
+        todoContainer.classList.add("todo");
         const todoTitle = document.createElement("h2");
         todoTitle.textContent = todo.title;
         const todoDescription = document.createElement("p");
@@ -80,8 +80,10 @@ function todoMainInterfaceSetup(project) {
         dueDate.textContent = `Due: ${todo.dueDate}`;
         const priority = document.createElement("p");
         priority.textContent = `Priority: ${todo.priority}`;
+        const tickedBtn = document.createElement("button");
+        tickedBtn.classList.add("tick-btn");
 
-        todoContainer.append(todoTitle, todoDescription, dueDate, priority);
+        todoContainer.append(todoTitle, todoDescription, dueDate, priority, tickedBtn);
         todos.appendChild(todoContainer);
     }
 
