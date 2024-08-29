@@ -1,6 +1,6 @@
 import App from "./modules/app.js";
-import loadIcons, { todoMainInterfaceSetup } from "./modules/ui.js";
-import { emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject, unselect } from "./modules/ui.js";
+import loadIcons, { editProjectUI, editToDoDialog, todoMainInterfaceSetup } from "./modules/ui.js";
+import { emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject, unselect, editProjectDialog } from "./modules/ui.js";
 import "./styles/styles.css";
 
 const Application = new App();
@@ -19,6 +19,8 @@ const body = document.querySelector("body");
 const form = document.querySelector("form");
 const projects = document.querySelector("#projects");
 
+let currentlyEditedToDoIndex = ""; 
+
 createProjectBtn.addEventListener("click", () => {
     createProjectDialog();
 })
@@ -26,6 +28,7 @@ createProjectBtn.addEventListener("click", () => {
 cancelDialogBtn.addEventListener("click", (e) => {
     e.preventDefault();
     closeDialog();
+    form.reset();
 })
 
 createDialogBtn.addEventListener("click", (e) => {
@@ -36,6 +39,23 @@ createDialogBtn.addEventListener("click", (e) => {
         createProject(Application.getProject(Application.getProjects().length - 1));
     } else if (form.id == "createToDo") {
         Application.createTodo(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1, values.title, values.description, values.dueDate, values.priority);
+        emptyMainInterface();
+        todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
+    } else if (form.id == "editProject") {
+        Application.updateProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1, values.title, values.description);
+        emptyMainInterface();
+        todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
+        editProjectUI(document.querySelector(".selected"), values.title);
+    } else if (form.id == "editToDo") {
+        Application.updateTodo(
+            [...projects.children].indexOf(document.querySelector(".selected"))-1,
+            currentlyEditedToDoIndex,
+            values.title,
+            values.description,
+            values.dueDate,
+            values.priority
+            
+        );
         emptyMainInterface();
         todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
     }
@@ -55,6 +75,12 @@ projects.addEventListener("click", (e) => {
         unselect();
         e.target.classList.add("selected");
         todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(e.target)-1));
+    } else if ([...e.target.classList].includes("edit-project-btn")) {
+        emptyMainInterface();
+        unselect();
+        e.target.parentElement.classList.add("selected");
+        todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(e.target.parentElement)-1));
+        editProjectDialog(Application.getProject(Array.from(projects.children).indexOf(e.target.parentElement)-1));
     }
 })
 
@@ -65,8 +91,15 @@ body.addEventListener("click", (e) => {
         const todos = document.querySelector("#todos");
         const todoIndex = Array.from(todos.children).indexOf(e.target.parentElement);
         Application.removeTodo(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1, todoIndex);
-        console.log(todoIndex);
         emptyMainInterface();
         todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
+    } else if ([...e.target.classList].includes("edit-to-do-btn")) {
+        editToDoDialog(
+            Application.getTodo(
+                [...projects.children].indexOf(document.querySelector(".selected"))-1,
+                Array.from(document.querySelector("#todos").children).indexOf(e.target.parentElement)
+            )
+        );
+        currentlyEditedToDoIndex = Array.from(document.querySelector("#todos").children).indexOf(e.target.parentElement);
     }
 })

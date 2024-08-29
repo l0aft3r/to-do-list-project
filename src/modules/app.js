@@ -60,11 +60,11 @@ class App {
     }
 
     updateTodo(projectIndex, index, title, description = "", dueDate = undefined, priority = 'low') {
-        const Todo = this.projects[projectIndex].todos[index];
-        Todo.title = title;
-        Todo.description = description;
-        if (dueDate) Todo.dueDate = format(dueDate, "dd/MM/yyyy");
-        if (priority) Todo.priority = priority;
+        const todo = this.projects[projectIndex].todos[index];
+        todo.title = title;
+        todo.description = description;
+        if (dueDate) todo.dueDate = format(dueDate, "dd/MM/yyyy");
+        if (priority) todo.priority = priority;
     }
 
     removeTodo(projectIndex, todoIndex) {

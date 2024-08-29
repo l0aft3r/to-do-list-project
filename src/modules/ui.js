@@ -5,8 +5,10 @@ import createSVG from "../icons/add-outline.svg";
 import getStartedSVG from "../icons/undraw_experience_design_re_dmqq.svg";
 import binSVG from "../icons/trash-outline.svg";
 
+import { format } from "date-fns";
+
 export default loadIcons
-export {emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, removeProject, todoMainInterfaceSetup, unselect}
+export {emptyMainInterface, getStarted, createProjectDialog, createToDoDialog, closeDialog, getValues, createProject, editProjectUI, removeProject, todoMainInterfaceSetup, unselect, editProjectDialog, editToDoDialog}
 
 function loadIcons() {
     const logo = document.querySelector("#logo>img");
@@ -54,6 +56,8 @@ function todoMainInterfaceSetup(project) {
 
     const h2 = document.createElement("h2");
     h2.textContent = project.title;
+    const description = document.createElement("p");
+    description.textContent = project.description;
 
     const p = document.createElement("p");
     p.textContent = `${project.todos.length} tasks`;
@@ -66,7 +70,7 @@ function todoMainInterfaceSetup(project) {
     createBtn.value = "Add task";
     createBtn.id = "createTodoBtn";
 
-    todoInterface.append(h2, p);
+    todoInterface.append(h2, description, p);
     const todos = document.createElement("div");
     todos.id = "todos";
     for (const todo of project.todos) {
@@ -75,15 +79,18 @@ function todoMainInterfaceSetup(project) {
         const todoTitle = document.createElement("h2");
         todoTitle.textContent = todo.title;
         const todoDescription = document.createElement("p");
-        todoDescription.textContent = todo.textContent;
+        todoDescription.textContent = todo.description;
         const  dueDate = document.createElement("p");
-        dueDate.textContent = `Due: ${todo.dueDate}`;
+        (todo.dueDate)?dueDate.textContent = `Due: ${todo.dueDate}`:dueDate.textContent = "No Due-Date Specified";
         const priority = document.createElement("p");
         priority.textContent = `Priority: ${todo.priority}`;
         const tickedBtn = document.createElement("button");
         tickedBtn.classList.add("tick-btn");
+        const editBtn = document.createElement("button");
+        editBtn.classList.add("edit-to-do-btn");
+        editBtn.textContent = "Edit Task";
 
-        todoContainer.append(todoTitle, todoDescription, dueDate, priority, tickedBtn);
+        todoContainer.append(todoTitle, todoDescription, dueDate, priority, tickedBtn, editBtn);
         todos.appendChild(todoContainer);
     }
 
@@ -124,6 +131,8 @@ function createProjectDialog() {
     description.display = "none";
     const descriptionLabel = document.querySelector('label[for="project-description"]');
     descriptionLabel.display = "none";
+    const createProjectBtn = document.querySelector("#createProjectBtn");
+    createProjectBtn.value = "Create";
     form.id = "createProject";
     dialog.showModal();
 }
@@ -144,6 +153,8 @@ function createToDoDialog() {
     description.display = "block";
     const descriptionLabel = document.querySelector('label[for="project-description"]');
     descriptionLabel.display = "block";
+    const createProjectBtn = document.querySelector("#createProjectBtn");
+    createProjectBtn.value = "Create";
     const form = document.querySelector("form");
     form.id = "createToDo";
     dialog.showModal();
@@ -171,6 +182,9 @@ function createProject(project) {
     const h2 = document.createElement("h2");
     h2.textContent = project.title;
     const btn = document.createElement("button");
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "edit Project";
+    editBtn.classList.add("edit-project-btn");
     const img = document.createElement("img");
 
     img.src = binSVG;
@@ -179,9 +193,47 @@ function createProject(project) {
     btn.appendChild(img);
     div.appendChild(h2);
     div.appendChild(btn);
+    div.appendChild(editBtn);
     projectsUi.appendChild(div);
+}
+
+function editProjectUI(projectElement, projectTitle) {
+    projectElement.firstChild.textContent = projectTitle;
 }
 
 function removeProject(projectElement) {
     projectElement.remove();
+}
+
+function editProjectDialog(project) {
+    createProjectDialog();
+    
+    const title = document.querySelector('form>h1');
+    title.textContent = "Edit Project";
+    const projectTitle = document.querySelector("#project-title");
+    projectTitle.value = project.title;
+    const projectDescription = document.querySelector("#project-description");
+    projectDescription.value = project.description;
+    const createProjectBtn = document.querySelector("#createProjectBtn");
+    createProjectBtn.value = "Confirm";
+    const form = document.querySelector("form");
+    form.id = "editProject";
+}
+
+function editToDoDialog(toDo) {
+    createToDoDialog();
+    const title = document.querySelector('form>h1');
+    title.textContent = "Edit Task";
+    const projectTitle = document.querySelector("#project-title");
+    projectTitle.value = toDo.title;
+    const projectDescription = document.querySelector("#project-description");
+    projectDescription.value = toDo.description;
+    const projectDate = document.querySelector("#project-date");
+    projectDate.value = format(Date(toDo.dueDate), ("yyyy-MM-dd"));
+    const priority = document.querySelector("#priority");
+    priority.value = toDo.priority;
+    const createProjectBtn = document.querySelector("#createProjectBtn");
+    createProjectBtn.value = "Confirm";
+    const form = document.querySelector("form");
+    form.id = "editToDo";
 }

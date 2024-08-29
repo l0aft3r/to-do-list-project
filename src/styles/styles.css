@@ -90,6 +90,7 @@ body {
     background-color: var(--purple);
     padding: 5px;
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -117,6 +118,26 @@ body {
     background-color: var(--pink);
 }
 
+.project.selected .edit-project-btn {
+    border: 1px solid var(--dark-purple);
+}
+
+.project:hover .edit-project-btn {
+    background-color: var(--purple);
+}
+
+.edit-project-btn {
+    z-index: 2;
+    position: absolute;
+    top: 65%;
+    right: 20%;
+    border: inherit;
+}
+
+.project:hover .edit-project-btn:hover {
+    background-color: var(--pink);
+}
+
 .selected {
     border: 1px solid var(--dark-purple);
 }
@@ -131,6 +152,21 @@ body {
 }
 
 .tick-btn:hover {
+    border: 1px solid var(--dark-purple);
+    background-color: var(--pink);
+}
+
+.edit-to-do-btn {
+    position: absolute;
+    right: 1rem;
+    bottom: calc(-15px);
+    border-radius: 5px;
+    color: var(--light-pink);
+    border: 1px solid var(--pink);
+    background-color: var(--dark-purple);
+}
+
+.edit-to-do-btn:hover {
     border: 1px solid var(--dark-purple);
     background-color: var(--pink);
 }
@@ -180,7 +216,7 @@ body {
 #projects {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 
     #create {
         box-sizing: border-box;
