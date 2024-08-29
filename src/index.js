@@ -8,6 +8,10 @@ const Application = new App();
 //Make Application available for testing in web-tools console
 window.Application = Application;
 
+for (const project of Application.getProjects()) {
+    createProject(project);
+}
+
 loadIcons();
 
 getStarted();
@@ -54,7 +58,7 @@ createDialogBtn.addEventListener("click", (e) => {
             values.description,
             values.dueDate,
             values.priority
-            
+
         );
         emptyMainInterface();
         todoMainInterfaceSetup(Application.getProject(Array.from(projects.children).indexOf(document.querySelector(".selected"))-1));
